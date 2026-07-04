@@ -12,10 +12,15 @@ if (process.env.NODE_ENV === 'production') {
     // Find the original dev.db in the deployment
     const originalDbPath = path.join(process.cwd(), 'prisma', 'dev.db');
     
-    // Copy it to /tmp so we can read and write to it
     if (fs.existsSync(originalDbPath)) {
-      fs.copyFileSync(originalDbPath, tmpDbPath);
-      console.log('Successfully copied SQLite DB to /tmp for write access.');
+      try {
+        fs.copyFileSync(originalDbPath, tmpDbPath);
+        console.log('Successfully copied SQLite DB to /tmp for write access.');
+      } catch (err) {
+        if (err.code !== 'EBUSY') {
+          console.error('Failed to copy DB', err);
+        }
+      }
     } else {
       console.warn('Could not find original dev.db at', originalDbPath);
     }
