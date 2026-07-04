@@ -1,4 +1,4 @@
-<img width="800" height="600" alt="image" src="https://github.com/user-attachments/assets/6dc80e8c-7994-43f0-8e11-12358873dd0e" />
+<img width="800" height="600" alt="607631656-ebfa2537-09f5-4dfa-b9d4-eb2384f3800e" src="https://github.com/user-attachments/assets/a989f9c0-1421-460f-b520-d06ff71a6c60" />
 # Local Civic Engagement Hub
 
 > **AI-powered constituency planning platform that transforms scattered citizen feedback into verified, evidence-based development priorities.**
