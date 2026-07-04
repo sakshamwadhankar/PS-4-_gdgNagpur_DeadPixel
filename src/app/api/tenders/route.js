@@ -42,6 +42,6 @@ export async function GET(request) {
     });
   } catch (error) {
     console.error('Error fetching tenders:', error);
-    return NextResponse.json({ success: false, error: 'Database error' }, { status: 500 });
+    return NextResponse.json({ success: false, error: error.message || 'Database error', stack: error.stack }, { status: 500 });
   }
 }

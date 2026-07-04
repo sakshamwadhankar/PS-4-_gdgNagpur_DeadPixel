@@ -75,6 +75,6 @@ export async function POST(request) {
 
   } catch (error) {
     console.error('Error in live scraper:', error);
-    return NextResponse.json({ success: false, error: 'Scraping failed' }, { status: 500 });
+    return NextResponse.json({ success: false, error: error.message || 'Scraping failed', stack: error.stack }, { status: 500 });
   }
 }
