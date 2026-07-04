@@ -159,7 +159,7 @@ export default function TendersPage() {
           )}
 
           {/* Table View */}
-          {view === 'table' && (
+          {view === 'table' && filtered.length > 0 && (
             <div className={styles.tableWrap}>
               <table className={styles.table}>
                 <thead>
@@ -197,6 +197,47 @@ export default function TendersPage() {
                   ))}
                 </tbody>
               </table>
+            </div>
+          )}
+
+          {/* Empty State / Trigger Scraper */}
+          {filtered.length === 0 && search.length > 2 && (
+            <div className={`glass-card ${styles.emptyScrapeCard}`} style={{ textAlign: 'center', padding: '3rem 2rem', marginTop: '1rem' }}>
+              <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>🤖</div>
+              <h3 style={{ fontFamily: 'var(--font-heading)', fontSize: '1.2rem', marginBottom: '0.5rem' }}>No tenders found in local database for "{search}"</h3>
+              <p style={{ color: 'var(--color-text-muted)', marginBottom: '1.5rem', fontSize: '0.9rem' }}>
+                We can deploy our scraper bots to search GEM and CPPP portals live for this city.
+              </p>
+              <button 
+                className="btn btn-primary"
+                onClick={async (e) => {
+                  const btn = e.target;
+                  btn.disabled = true;
+                  btn.innerText = '🔄 Scraping Live Portals... (This takes a few seconds)';
+                  
+                  try {
+                    const res = await fetch('/api/tenders/scrape', {
+                      method: 'POST',
+                      headers: { 'Content-Type': 'application/json' },
+                      body: JSON.stringify({ city: search })
+                    });
+                    
+                    if (res.ok) {
+                      // Reload tenders from DB
+                      const freshRes = await fetch('/api/tenders');
+                      const data = await freshRes.json();
+                      if (data.success) setTenders(data.data);
+                    }
+                  } catch (err) {
+                    console.error('Failed to scrape', err);
+                  } finally {
+                    btn.disabled = false;
+                    btn.innerText = 'Scraping Complete!';
+                  }
+                }}
+              >
+                🔍 Scrape Live Portals for "{search}"
+              </button>
             </div>
           )}
         </>
