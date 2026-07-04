@@ -1,0 +1,148 @@
+:root {
+  /* Brutalist Color Palette (from image) */
+  --bg-color: #201D1C;       /* "YOUR MOM" (Dark background) */
+  --surface-color: #6C584C;  /* "DIRT" */
+  --surface-border: #CFC3B6; /* "HALF PIPE" */
+  --text-primary: #CFC3B6;   /* "HALF PIPE" */
+  --text-secondary: #CFC3B6; /* "HALF PIPE" */
+  
+  --accent-orange: #F36509;  /* "HEY YAAAAA" */
+  --accent-teal: #015D67;    /* "SALT FIX" */
+  --accent-beige: #CFC3B6;   /* "HALF PIPE" */
+  
+  /* Brutalist Shadows & Borders */
+  --brutal-border: 4px solid var(--surface-border);
+  --brutal-shadow: 6px 6px 0px var(--surface-border);
+  --brutal-shadow-hover: 2px 2px 0px var(--surface-border);
+
+  /* Typography */
+  --font-main: var(--font-geist-sans), "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, "Courier New", monospace;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-primary);
+  font-family: var(--font-main);
+  line-height: 1.4;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  color: var(--accent-blue);
+  text-decoration: none;
+  font-weight: 800;
+}
+
+a:hover {
+  text-decoration: underline;
+  text-decoration-thickness: 3px;
+}
+
+/* Utilities */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.brutal-panel {
+  background: var(--surface-color);
+  border: var(--brutal-border);
+  box-shadow: var(--brutal-shadow);
+  padding: 1rem;
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 24px;
+  font-weight: 900;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+  border: var(--brutal-border);
+  box-shadow: var(--brutal-shadow);
+  transition: all 0.1s ease;
+  background: var(--bg-color);
+  color: var(--text-primary);
+}
+
+.btn:hover {
+  transform: translate(4px, 4px);
+  box-shadow: var(--brutal-shadow-hover);
+}
+
+.btn-primary {
+  background-color: var(--accent-orange);
+  color: var(--bg-color);
+}
+
+.btn-success {
+  background-color: var(--accent-teal);
+  color: var(--bg-color);
+}
+
+.btn-outline {
+  background: var(--bg-color);
+}
+
+.btn-danger {
+  background-color: var(--accent-orange);
+  color: var(--bg-color);
+}
+
+/* Typography elements */
+h1, h2, h3, h4, h5, h6 {
+  color: var(--text-primary);
+  font-weight: 900;
+  line-height: 1.1;
+  text-transform: uppercase;
+}
+
+h1 {
+  font-size: 4rem;
+  letter-spacing: -0.03em;
+}
+
+h2 {
+  font-size: 2.5rem;
+  letter-spacing: -0.02em;
+}
+
+p {
+  color: var(--text-primary);
+  font-weight: 500;
+  font-size: 1.1rem;
+}
+
+/* Common form inputs brutalist style */
+.brutal-input {
+  border: var(--brutal-border);
+  box-shadow: 4px 4px 0px var(--surface-border);
+  padding: 12px;
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 600;
+  background: var(--surface-color);
+  color: var(--text-primary);
+  width: 100%;
+}
+
+.brutal-input:focus {
+  outline: none;
+  background: var(--bg-color);
+}
