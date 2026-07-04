@@ -3,7 +3,7 @@
    Premium dark civic theme with glassmorphism
    ============================================================ */
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800;900&display=swap');
+
 
 /* ── CSS Custom Properties ── */
 :root {
@@ -63,9 +63,7 @@
   --shadow-glow: 0 4px 20px rgba(246, 173, 55, 0.2);
   --shadow-glow-gold: 0 4px 20px rgba(246, 173, 55, 0.2);
 
-  /* Typography */
-  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  --font-heading: 'Outfit', 'Inter', sans-serif;
+  /* Typography is injected by next/font/google in layout.js */
 
   /* Spacing */
   --space-xs: 0.25rem;
