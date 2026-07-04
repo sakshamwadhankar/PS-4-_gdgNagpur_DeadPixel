@@ -37,7 +37,12 @@ export default function TendersPage() {
     let items = [...tenders];
     if (search) {
       const q = search.toLowerCase();
-      items = items.filter(t => t.title.toLowerCase().includes(q) || t.department.toLowerCase().includes(q));
+      items = items.filter(t => 
+        t.title.toLowerCase().includes(q) || 
+        t.department.toLowerCase().includes(q) ||
+        t.constituency.toLowerCase().includes(q) ||
+        (t.description && t.description.toLowerCase().includes(q))
+      );
     }
     if (portalFilter !== 'All') items = items.filter(t => t.source_portal === portalFilter);
     if (statusFilter !== 'All') items = items.filter(t => t.status === statusFilter);
@@ -67,7 +72,7 @@ export default function TendersPage() {
           <input
             type="text"
             className={`input-field ${styles.searchInput}`}
-            placeholder="Search tenders by keyword or department..."
+            placeholder="Search tenders by keyword, department, or city..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
