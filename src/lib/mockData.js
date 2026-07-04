@@ -369,26 +369,26 @@ export const SEVERITY_LABELS = {
 };
 
 export const SEVERITY_COLORS = {
-  1: '#6ee7b7',
-  2: '#86efac',
-  3: '#fbbf24',
-  4: '#f97316',
-  5: '#ef4444',
+  1: '#E1DDFA', // pastel purple
+  2: '#D8E2F2', // pastel blue
+  3: '#F8C36B', // pastel yellow/gold
+  4: '#F6AD37', // solid gold
+  5: '#794D3B', // earthy brown
 };
 
 export const STATUS_COLORS = {
-  'Proposed': '#8b5cf6',
-  'Funded': '#3b82f6',
-  'In Progress': '#f59e0b',
-  'Resolved': '#10b981',
-  'Open': '#10b981',
-  'Closed': '#6b7280',
+  'Proposed': '#E1DDFA',
+  'Funded': '#D8E2F2',
+  'In Progress': '#F8C36B',
+  'Resolved': '#85A343', // soft green
+  'Open': '#85A343',
+  'Closed': '#737865', // dark olive
 };
 
 export const PORTAL_COLORS = {
-  'GEM': '#6366f1',
-  'CPPP': '#ec4899',
-  'State eProcure': '#14b8a6',
+  'GEM': '#794D3B',
+  'CPPP': '#F6AD37',
+  'State eProcure': '#85A343',
 };
 
 export function formatCurrency(value) {
