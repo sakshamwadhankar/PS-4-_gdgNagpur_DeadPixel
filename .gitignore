@@ -34,5 +34,4 @@ yarn-error.log*
 .idea/
 
 # database
-dev.db
-prisma/dev.db
+*.db
