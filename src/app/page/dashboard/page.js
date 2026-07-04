@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useMemo } from 'react';
 import Link from 'next/link';
+import { BarChart3, ClipboardList, Zap, AlertCircle, CheckSquare, Award, MapPin } from 'lucide-react';
 import { ISSUE_CATEGORIES, ISSUE_STATUSES, SEVERITY_LABELS, SEVERITY_COLORS, STATUS_COLORS } from '@/lib/mockData';
 import styles from './dashboard.module.css';
 
@@ -68,7 +69,7 @@ export default function DashboardPage() {
   return (
     <div className="container">
       <div className="page-header">
-        <h1 className="page-title">📊 Planner Dashboard</h1>
+        <h1 className="page-title"><BarChart3 size={32} style={{ display: 'inline-block', verticalAlign: 'middle', marginRight: '8px' }} /> Planner Dashboard</h1>
         <p className="page-description">
           Priority-ranked civic issues with data-driven scoring for constituency fund allocation.
         </p>
@@ -81,28 +82,28 @@ export default function DashboardPage() {
           {/* Stats Overview */}
           <div className={styles.statsRow}>
             <div className={`glass-card ${styles.statCard}`}>
-              <div className={styles.statIcon}>📋</div>
+              <div className={styles.statIcon}><ClipboardList size={24} /></div>
               <div className={styles.statInfo}>
                 <span className={styles.statNum}>{totalIssues}</span>
                 <span className={styles.statLabel}>Total Issues</span>
               </div>
             </div>
             <div className={`glass-card ${styles.statCard}`}>
-              <div className={styles.statIcon} style={{ background: 'rgba(245, 158, 11, 0.15)' }}>⚡</div>
+              <div className={styles.statIcon} style={{ background: 'rgba(245, 158, 11, 0.15)' }}><Zap size={24} color="var(--color-gold)" /></div>
               <div className={styles.statInfo}>
                 <span className={styles.statNum} style={{ color: 'var(--color-gold)' }}>{openIssues}</span>
                 <span className={styles.statLabel}>Open Issues</span>
               </div>
             </div>
             <div className={`glass-card ${styles.statCard}`}>
-              <div className={styles.statIcon} style={{ background: 'rgba(239, 68, 68, 0.15)' }}>🔴</div>
+              <div className={styles.statIcon} style={{ background: 'rgba(239, 68, 68, 0.15)' }}><AlertCircle size={24} color="var(--color-rose)" /></div>
               <div className={styles.statInfo}>
                 <span className={styles.statNum} style={{ color: 'var(--color-rose)' }}>{criticalIssues}</span>
                 <span className={styles.statLabel}>Critical (Severity 5)</span>
               </div>
             </div>
             <div className={`glass-card ${styles.statCard}`}>
-              <div className={styles.statIcon} style={{ background: 'rgba(139, 92, 246, 0.15)' }}>🗳️</div>
+              <div className={styles.statIcon} style={{ background: 'rgba(139, 92, 246, 0.15)' }}><CheckSquare size={24} color="var(--color-purple)" /></div>
               <div className={styles.statInfo}>
                 <span className={styles.statNum} style={{ color: 'var(--color-purple)' }}>{totalVotes.toLocaleString()}</span>
                 <span className={styles.statLabel}>Total Votes</span>
@@ -115,7 +116,7 @@ export default function DashboardPage() {
             <div className={styles.mainPanel}>
               <div className={`glass-card ${styles.tableCard}`}>
                 <div className={styles.tableHeader}>
-                  <h2 className={styles.tableTitle}>🏆 Priority Ranked Issues</h2>
+                  <h2 className={styles.tableTitle}><Award size={20} style={{ display: 'inline-block', verticalAlign: 'text-bottom', marginRight: '8px' }} /> Priority Ranked Issues</h2>
                   <div className={styles.formulaBadge}>
                     Score = (V × 1.5) + (S × 2) − (T × 0.5)
                   </div>
@@ -142,7 +143,7 @@ export default function DashboardPage() {
                             <Link href={`/page/issues/${issue.issue_id}`} className={styles.issueLink}>
                               {issue.raw_text.length > 60 ? issue.raw_text.substring(0, 60) + '...' : issue.raw_text}
                             </Link>
-                            <span className={styles.issueLocation}>📍 {issue.location_text}</span>
+                            <span className={styles.issueLocation}><MapPin size={12} style={{ display: 'inline-block', verticalAlign: 'middle' }} /> {issue.location_text}</span>
                           </td>
                           <td><span className="badge badge-gray">{issue.ai_category}</span></td>
                           <td>

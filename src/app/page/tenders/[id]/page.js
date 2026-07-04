@@ -2,6 +2,7 @@
 
 import { use } from 'react';
 import Link from 'next/link';
+import { ArrowLeft, Clock, Banknote, Link as LinkIcon, Bot, FileText } from 'lucide-react';
 import { MOCK_TENDERS, PORTAL_COLORS, STATUS_COLORS, formatCurrency, formatDate, daysUntil } from '@/lib/mockData';
 import styles from './tenderDetail.module.css';
 
@@ -23,7 +24,7 @@ export default function TenderDetailPage({ params }) {
   return (
     <div className="container">
       <div className="page-header">
-        <Link href="/page/tenders" className={styles.backLink}>← Back to Tenders</Link>
+        <Link href="/page/tenders" className={styles.backLink}><ArrowLeft size={16} /> Back to Tenders</Link>
       </div>
 
       <div className={styles.layout}>
@@ -44,9 +45,8 @@ export default function TenderDetailPage({ params }) {
             <p className={styles.desc}>{tender.description}</p>
           </div>
 
-          {/* Tender Details */}
-          <div className={`glass-card ${styles.detailsCard}`}>
-            <h2 className={styles.sectionTitle}>📋 Tender Details</h2>
+          <div className={styles.mainCol}>
+            <h2 className={styles.sectionTitle}><FileText size={20} /> Tender Details</h2>
             <div className={styles.detailsGrid}>
               <div className={styles.detailItem}>
                 <span className={styles.detailLabel}>Tender ID</span>
@@ -75,9 +75,8 @@ export default function TenderDetailPage({ params }) {
             </div>
           </div>
 
-          {/* Scraper Info */}
-          <div className={`glass-card ${styles.scraperCard}`}>
-            <h2 className={styles.sectionTitle}>🤖 Scraper Information</h2>
+          <h2 className={styles.sectionTitle} style={{ marginTop: '2rem' }}><Bot size={20} /> Scraper Information</h2>
+          <div className={`glass-card ${styles.metaCard}`}>
             <p className={styles.scraperText}>
               This tender was automatically scraped from <strong>{tender.source_portal}</strong> using Playwright headless browser.
               Data is refreshed every 6 hours via CRON job.
@@ -92,24 +91,23 @@ export default function TenderDetailPage({ params }) {
 
         <div className={styles.sidebar}>
           <div className={`glass-card ${styles.deadlineCard}`}>
-            <h3 className={styles.sidebarTitle}>⏰ Deadline</h3>
-            <div className={styles.deadlineNum} style={{ color: days <= 7 ? 'var(--color-rose)' : 'var(--color-emerald)' }}>
-              {tender.status === 'Closed' ? 'Closed' : days}
+            <h3 className={styles.sidebarTitle}><Clock size={16} /> Deadline</h3>
+            <div className={styles.countdown}>
+              {tender.status === 'Closed' ? 'Closed' : `${days} Days Left`}
             </div>
-            {tender.status !== 'Closed' && <div className={styles.deadlineLabel}>days remaining</div>}
-            <div className={styles.deadlineDate}>{formatDate(tender.deadline)}</div>
-          </div>
+            <div className={styles.dateExact}>{formatDate(tender.deadline)}</div>
 
-          <div className={`glass-card ${styles.valueCard}`}>
-            <h3 className={styles.sidebarTitle}>💰 Estimated Value</h3>
-            <div className={styles.valueNum}>{formatCurrency(tender.estimated_value)}</div>
+            <div className={styles.sidebarDivider} />
+
+            <h3 className={styles.sidebarTitle}><Banknote size={16} /> Estimated Value</h3>
+            <div className={styles.valueLarge}>{formatCurrency(tender.estimated_value)}</div>
             <div className={styles.valueExact}>₹{tender.estimated_value.toLocaleString('en-IN')}</div>
-          </div>
 
-          <div className={`glass-card ${styles.linkCard}`}>
-            <h3 className={styles.sidebarTitle}>🔗 Original Portal</h3>
-            <a href={tender.portal_url} target="_blank" rel="noopener noreferrer" className="btn btn-outline" style={{ width: '100%' }}>
-              View on {tender.source_portal} →
+            <div className={styles.sidebarDivider} />
+
+            <h3 className={styles.sidebarTitle}><LinkIcon size={16} /> Original Portal</h3>
+            <a href={tender.portal_url} target="_blank" rel="noopener noreferrer" className="btn btn-outline" style={{ width: '100%', marginTop: '0.5rem' }}>
+              View on {tender.source_portal} <ArrowLeft size={16} style={{ transform: 'rotate(135deg)' }} />
             </a>
           </div>
         </div>

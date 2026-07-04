@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useMemo } from 'react';
 import Link from 'next/link';
+import { Megaphone, Search, ArrowUp, MapPin, Bot } from 'lucide-react';
 import { ISSUE_CATEGORIES, ISSUE_STATUSES, SEVERITY_LABELS, SEVERITY_COLORS, STATUS_COLORS } from '@/lib/mockData';
 import styles from './issues.module.css';
 
@@ -60,7 +61,7 @@ export default function IssuesPage() {
   return (
     <div className="container" style={{ paddingBottom: '6rem' }}>
       <div className="page-header">
-        <h1 className="page-title">📢 Civic Issues</h1>
+        <h1 className="page-title"><Megaphone size={32} style={{ display: 'inline-block', verticalAlign: 'middle', marginRight: '8px' }} /> Civic Issues</h1>
         <p className="page-description">
           Browse, filter, and vote on issues reported by citizens in your ward.
         </p>
@@ -68,7 +69,7 @@ export default function IssuesPage() {
 
       <div className={styles.filters}>
         <div className={styles.searchWrap}>
-          <span className={styles.searchIcon}>🔍</span>
+          <span className={styles.searchIcon}><Search size={16} /></span>
           <input
             type="text"
             className={`input-field ${styles.searchInput}`}
@@ -119,7 +120,7 @@ export default function IssuesPage() {
                   </span>
                 </div>
                 <div className={styles.voteBadge}>
-                  <span className={styles.voteArrow}>▲</span>
+                  <span className={styles.voteArrow}><ArrowUp size={14} /></span>
                   {issue.vote_count}
                 </div>
               </div>
@@ -127,7 +128,7 @@ export default function IssuesPage() {
               <p className={styles.issueText}>{issue.raw_text}</p>
 
               <div className={styles.issueMeta}>
-                <span className={styles.location}>📍 {issue.location_text}</span>
+                <span className={styles.location}><MapPin size={14} style={{ display: 'inline-block', verticalAlign: 'text-bottom' }} /> {issue.location_text}</span>
                 <span className="badge badge-gray">{issue.ai_category}</span>
               </div>
 
@@ -138,7 +139,7 @@ export default function IssuesPage() {
                 </div>
                 {issue.similar_count > 0 && (
                   <div className={styles.mergedBox} title={`${issue.similar_count} similar reports merged by AI`}>
-                    🤖 {issue.similar_count} merged
+                    <Bot size={14} style={{ display: 'inline-block', verticalAlign: 'text-bottom', marginRight: '4px' }} /> {issue.similar_count} merged
                   </div>
                 )}
               </div>

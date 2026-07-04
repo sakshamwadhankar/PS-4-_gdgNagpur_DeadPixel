@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useMemo } from 'react';
 import Link from 'next/link';
+import { Search, RotateCw, LayoutGrid, List, FileText, CheckCircle, Clock } from 'lucide-react';
 import { PORTAL_COLORS, STATUS_COLORS, formatCurrency, formatDate, daysUntil } from '@/lib/mockData';
 import styles from './tenders.module.css';
 
@@ -52,7 +53,7 @@ export default function TendersPage() {
   return (
     <div className="container">
       <div className="page-header">
-        <h1 className="page-title">📑 Government Tenders</h1>
+        <h1 className="page-title"><FileText size={32} style={{ display: 'inline-block', verticalAlign: 'middle', marginRight: '8px' }} /> Government Tenders</h1>
         <p className="page-description">
           Live aggregated data from GEM, CPPP, and State eProcure portals. Transparency into planned government spending.
         </p>
@@ -66,9 +67,9 @@ export default function TendersPage() {
       </div>
 
       {/* Filters */}
-      <div className={styles.filters}>
-        <div className={styles.searchWrap}>
-          <span className={styles.searchIcon}>🔍</span>
+      <div className={styles.controls}>
+        <div className={styles.searchBox}>
+          <span className={styles.searchIcon}><Search size={16} /></span>
           <input
             type="text"
             className={`input-field ${styles.searchInput}`}
@@ -203,7 +204,7 @@ export default function TendersPage() {
           {/* Empty State / Trigger Scraper */}
           {filtered.length === 0 && search.length > 2 && (
             <div className={`glass-card ${styles.emptyScrapeCard}`} style={{ textAlign: 'center', padding: '3rem 2rem', marginTop: '1rem' }}>
-              <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>🤖</div>
+              <div style={{ marginBottom: '1rem', color: 'var(--color-text-muted)' }}><Search size={48} /></div>
               <h3 style={{ fontFamily: 'var(--font-heading)', fontSize: '1.2rem', marginBottom: '0.5rem' }}>No tenders found in local database for "{search}"</h3>
               <p style={{ color: 'var(--color-text-muted)', marginBottom: '1.5rem', fontSize: '0.9rem' }}>
                 We can deploy our scraper bots to search GEM and CPPP portals live for this city.
@@ -236,7 +237,7 @@ export default function TendersPage() {
                   }
                 }}
               >
-                🔍 Scrape Live Portals for "{search}"
+                <Search size={16} /> Scrape Live Portals for "{search}"
               </button>
             </div>
           )}

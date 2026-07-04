@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { ArrowLeft, ArrowUp, Sparkles, AlertCircle, Link as LinkIcon, CheckCircle } from 'lucide-react';
 import prisma from '@/lib/prisma';
 import { SEVERITY_COLORS, STATUS_COLORS } from '@/lib/mockData';
 import styles from './detail.module.css';
@@ -28,7 +29,7 @@ export default async function IssueDetailPage({ params }) {
   return (
     <div className="container">
       <div className="page-header">
-        <Link href="/page/issues" className={styles.backLink}>← Back to Issues</Link>
+        <Link href="/page/issues" className={styles.backLink}><ArrowLeft size={16} /> Back to Issues</Link>
       </div>
 
       <div className={styles.layout}>
@@ -85,11 +86,11 @@ export default async function IssueDetailPage({ params }) {
           <div className={`glass-card ${styles.voteCard}`}>
             <div className={styles.voteCount}>{issue.voteCount}</div>
             <div className={styles.voteLabel}>Citizens Upvoted</div>
-            <button className="btn btn-primary" style={{ width: '100%' }}>▲ Upvote Issue</button>
+            <button className="btn btn-primary" style={{ width: '100%' }}><ArrowUp size={16} /> Upvote Issue</button>
           </div>
 
           <div className={`glass-card ${styles.aiCard}`}>
-            <h3 className={styles.sidebarTitle}>🤖 AI Insights</h3>
+            <h3 className={styles.sidebarTitle}><Sparkles size={16} /> AI Insights</h3>
             
             <div className={styles.aiMetric}>
               <span className={styles.aiLabel}>Category</span>
@@ -111,15 +112,15 @@ export default async function IssueDetailPage({ params }) {
             </div>
 
             {issue.similarCount > 0 && (
-              <div className={styles.mergedInfo}>
-                <span className={styles.mergedIcon}>🔗</span>
-                <p>{issue.similarCount} duplicate reports were merged into this issue by AI.</p>
+              <div className={styles.mergedBadge}>
+                <span className={styles.mergedIcon}><LinkIcon size={14} /></span>
+                Merged {issue.similar_count} duplicate reports
               </div>
             )}
           </div>
 
-          <div className={`glass-card ${styles.priorityCard}`}>
-            <h3 className={styles.sidebarTitle}>🏆 Priority Score</h3>
+          <div className={`glass-card ${styles.scoreCard}`}>
+            <h3 className={styles.sidebarTitle}><AlertCircle size={16} /> Priority Score</h3>
             <div className={styles.scoreLarge}>{Math.round(issue.priorityScore)}</div>
             <p className={styles.formulaText}>
               Score = (V × 1.5) + (S × 2) − (T × 0.5)

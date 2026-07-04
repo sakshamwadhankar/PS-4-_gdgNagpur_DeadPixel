@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from 'react';
 import Link from 'next/link';
+import { MapPin, Bot, BarChart3, Search, CheckSquare, Rocket, FileText, ArrowRight } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import styles from './page.module.css';
@@ -116,25 +117,25 @@ function ParticleBackground() {
 
 const FEATURES = [
   {
-    icon: '📍',
+    icon: <MapPin size={24} />,
     title: 'Geofenced Participation',
     desc: 'Only verified local residents can vote and submit issues. View from anywhere, participate locally.',
     color: 'var(--color-emerald)',
   },
   {
-    icon: '🤖',
+    icon: <Bot size={24} />,
     title: 'AI Deduplication',
     desc: 'Gemini AI automatically merges duplicate complaints, ensuring every issue gets the attention it deserves.',
     color: 'var(--color-purple)',
   },
   {
-    icon: '📊',
+    icon: <BarChart3 size={24} />,
     title: 'Priority Dashboard',
     desc: 'Data-driven scoring ranks issues by votes, severity, and urgency — not politics.',
     color: 'var(--color-gold)',
   },
   {
-    icon: '🔍',
+    icon: <Search size={24} />,
     title: 'Tender Transparency',
     desc: 'Live scraping of GEM, CPPP, and eProcure portals surfaces government spending in your area.',
     color: 'var(--color-blue)',
@@ -172,10 +173,10 @@ export default function LandingPage() {
           </p>
           <div className={styles.heroCtas}>
             <Link href="/page/issues" className="btn btn-primary btn-lg">
-              🗳️ View Issues
+              <CheckSquare size={18} /> View Issues
             </Link>
             <Link href="/page/auth" className="btn btn-secondary btn-lg">
-              Get Verified →
+              Get Verified <ArrowRight size={18} />
             </Link>
           </div>
           <div className={styles.heroStats}>
@@ -281,10 +282,10 @@ export default function LandingPage() {
             </p>
             <div className={styles.ctaCtas}>
               <Link href="/page/issues/new" className="btn btn-primary btn-lg">
-                🚀 Report an Issue
+                <Rocket size={18} /> Report an Issue
               </Link>
               <Link href="/page/tenders" className="btn btn-outline btn-lg">
-                📑 Browse Tenders
+                <FileText size={18} /> Browse Tenders
               </Link>
             </div>
           </div>

@@ -3,13 +3,14 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { Home, ClipboardList, FileText, BarChart2, Zap } from 'lucide-react';
 import styles from './Navbar.module.css';
 
 const NAV_LINKS = [
-  { href: '/', label: 'Home', icon: '🏠' },
-  { href: '/page/issues', label: 'Issues', icon: '📋' },
-  { href: '/page/tenders', label: 'Tenders', icon: '📑' },
-  { href: '/page/dashboard', label: 'Dashboard', icon: '📊' },
+  { href: '/', label: 'Home', icon: <Home size={18} /> },
+  { href: '/page/issues', label: 'Issues', icon: <ClipboardList size={18} /> },
+  { href: '/page/tenders', label: 'Tenders', icon: <FileText size={18} /> },
+  { href: '/page/dashboard', label: 'Dashboard', icon: <BarChart2 size={18} /> },
 ];
 
 export default function Navbar() {
@@ -31,7 +32,7 @@ export default function Navbar() {
     <nav className={`${styles.navbar} ${scrolled ? styles.scrolled : ''}`}>
       <div className={`container ${styles.inner}`}>
         <Link href="/" className={styles.logo}>
-          <span className={styles.logoIcon}>⚡</span>
+          <span className={styles.logoIcon}><Zap size={24} /></span>
           <span className={styles.logoText}>
             Civic<span className={styles.logoAccent}>Pulse</span>
           </span>
