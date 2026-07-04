@@ -1,9 +1,7 @@
 import Link from 'next/link';
-import { PrismaClient } from '@prisma/client';
+import prisma from '@/lib/prisma';
 import { SEVERITY_COLORS, STATUS_COLORS } from '@/lib/mockData';
 import styles from './detail.module.css';
-
-const prisma = new PrismaClient();
 
 export default async function IssueDetailPage({ params }) {
   const { id } = await params;

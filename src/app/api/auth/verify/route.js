@@ -1,7 +1,5 @@
 import { NextResponse } from 'next/server';
-import { PrismaClient } from '@prisma/client';
-
-const prisma = new PrismaClient();
+import prisma from '@/lib/prisma';
 const VALID_POSTCODES = ['440001', '440002', '440003', '440004', '440005', '440006', '440008', '440009', '440010'];
 
 export async function POST(request) {
