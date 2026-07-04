@@ -32,3 +32,7 @@ yarn-error.log*
 # IDE
 .vscode/
 .idea/
+
+# database
+dev.db
+prisma/dev.db

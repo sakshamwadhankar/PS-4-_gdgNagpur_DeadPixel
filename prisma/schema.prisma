@@ -1,0 +1,64 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model User {
+  id          String   @id @default(cuid())
+  phoneNumber String   @unique
+  postalCode  String
+  isVerified  Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  issues      Issue[]
+  votes       Vote[]
+}
+
+model Issue {
+  id            String   @id @default(cuid())
+  rawText       String
+  locationText  String
+  aiCategory    String
+  severityScore Int
+  status        String   @default("Proposed") // Proposed, Funded, In Progress, Resolved
+  voteCount     Int      @default(1)
+  priorityScore Float    @default(0.0)
+  similarCount  Int      @default(0)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  
+  authorId      String
+  author        User     @relation(fields: [authorId], references: [id])
+  votes         Vote[]
+}
+
+model Vote {
+  id        String   @id @default(cuid())
+  userId    String
+  issueId   String
+  createdAt DateTime @default(now())
+
+  user      User     @relation(fields: [userId], references: [id])
+  issue     Issue    @relation(fields: [issueId], references: [id])
+
+  @@unique([userId, issueId])
+}
+
+model Tender {
+  id             String   @id @default(cuid())
+  portalTenderId String   @unique
+  title          String
+  department     String
+  estimatedValue Float
+  deadline       DateTime
+  portalUrl      String
+  sourcePortal   String
+  constituency   String
+  status         String   @default("Open")
+  category       String   @default("Infrastructure")
+  description    String?
+  scrapedAt      DateTime @default(now())
+}

@@ -10,27 +10,53 @@ export default function NewIssuePage() {
   const [form, setForm] = useState({ text: '', category: '', location: '', severity: '' });
   const [submitted, setSubmitted] = useState(false);
   const [similar, setSimilar] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [aiResult, setAiResult] = useState(null);
 
   const handleChange = (field, value) => setForm(prev => ({ ...prev, [field]: value }));
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Simulate AI dedup check
-    if (step === 1 && form.text.length > 10) {
-      setSimilar({
-        found: true,
-        match: 'Massive pothole on Wardha Road near Ajni Square',
-        similarity: 72,
-        issue_id: 'iss-001'
-      });
-      setStep(2);
+    
+    if (step === 1) {
+      setLoading(true);
+      try {
+        const res = await fetch('/api/issues', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ text: form.text, location: form.location })
+        });
+        const data = await res.json();
+        
+        if (data.deduplicated) {
+          setSimilar({
+            found: true,
+            match: data.existing_issue.raw_text,
+            similarity: data.similarity,
+            issue_id: data.existing_issue.issue_id
+          });
+          setStep(2);
+        } else if (data.success) {
+          setAiResult({
+            category: data.category,
+            severity: data.severity,
+            issue_id: data.issue_id
+          });
+          setStep(2);
+        }
+      } catch (err) {
+        console.error('API error:', err);
+      } finally {
+        setLoading(false);
+      }
       return;
     }
+
     if (step === 2) {
-      setStep(3);
-      return;
+      // If we are not a duplicate, we already created the issue in the DB in step 1 (for simplicity).
+      // So we just show success.
+      setSubmitted(true);
     }
-    setSubmitted(true);
   };
 
   if (submitted) {
@@ -40,13 +66,13 @@ export default function NewIssuePage() {
           <div className={styles.successIcon}>✅</div>
           <h1 className={styles.successTitle}>Issue Submitted!</h1>
           <p className={styles.successDesc}>
-            Your civic issue has been recorded and will be reviewed by our AI system for categorization and deduplication.
+            Your civic issue has been recorded. The AI system has categorized it and assigned a severity score.
           </p>
           <div className={styles.successActions}>
             <Link href="/page/issues" className="btn btn-primary">View All Issues</Link>
-            <Link href="/page/issues/new" className="btn btn-secondary" onClick={() => { setSubmitted(false); setStep(1); setForm({ text: '', category: '', location: '', severity: '' }); setSimilar(null); }}>
+            <button className="btn btn-secondary" onClick={() => { setSubmitted(false); setStep(1); setForm({ text: '', category: '', location: '', severity: '' }); setSimilar(null); setAiResult(null); }}>
               Report Another
-            </Link>
+            </button>
           </div>
         </div>
       </div>
@@ -112,8 +138,8 @@ export default function NewIssuePage() {
                 </div>
               </div>
 
-              <button type="submit" className="btn btn-primary btn-lg" style={{ width: '100%' }}>
-                🤖 Run AI Analysis →
+              <button type="submit" className="btn btn-primary btn-lg" style={{ width: '100%' }} disabled={loading}>
+                {loading ? '🤖 AI Processing...' : '🤖 Run AI Analysis →'}
               </button>
             </div>
           )}
@@ -121,9 +147,9 @@ export default function NewIssuePage() {
           {step === 2 && (
             <div className={styles.formStep}>
               <div className={styles.aiReview}>
-                <h3 className={styles.aiTitle}>🤖 AI Deduplication Check</h3>
+                <h3 className={styles.aiTitle}>🤖 AI Analysis Results</h3>
 
-                {similar?.found && (
+                {similar?.found ? (
                   <div className={styles.similarCard}>
                     <div className={styles.similarHeader}>
                       <span className="badge badge-gold">⚠ Similar Issue Found</span>
@@ -136,28 +162,28 @@ export default function NewIssuePage() {
                       </Link>
                     </div>
                   </div>
-                )}
-
-                <div className={styles.aiDecision}>
-                  <p className={styles.aiDecisionText}>
-                    The match is below 85% threshold. Your issue will be created as a <strong>new entry</strong>.
-                  </p>
-                  <div className={styles.aiCategories}>
-                    <div className={styles.aiCat}>
-                      <span className={styles.aiCatLabel}>AI Category</span>
-                      <span className={styles.aiCatValue}>{form.category || 'Roads & Transport'}</span>
-                    </div>
-                    <div className={styles.aiCat}>
-                      <span className={styles.aiCatLabel}>AI Severity</span>
-                      <span className={styles.aiCatValue} style={{ color: 'var(--color-gold)' }}>4/5 — High</span>
+                ) : (
+                  <div className={styles.aiDecision}>
+                    <p className={styles.aiDecisionText}>
+                      No duplicates found! The AI has processed your issue:
+                    </p>
+                    <div className={styles.aiCategories}>
+                      <div className={styles.aiCat}>
+                        <span className={styles.aiCatLabel}>AI Category</span>
+                        <span className={styles.aiCatValue}>{aiResult?.category}</span>
+                      </div>
+                      <div className={styles.aiCat}>
+                        <span className={styles.aiCatLabel}>AI Severity</span>
+                        <span className={styles.aiCatValue} style={{ color: 'var(--color-gold)' }}>{aiResult?.severity}/5</span>
+                      </div>
                     </div>
                   </div>
-                </div>
+                )}
               </div>
 
               <div className={styles.formActions}>
                 <button type="button" className="btn btn-secondary" onClick={() => setStep(1)}>← Back</button>
-                <button type="submit" className="btn btn-primary">Confirm & Submit →</button>
+                <button type="submit" className="btn btn-primary">Confirm & Finish →</button>
               </div>
             </div>
           )}

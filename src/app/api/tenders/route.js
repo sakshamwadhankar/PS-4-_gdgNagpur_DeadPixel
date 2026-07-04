@@ -1,23 +1,49 @@
 import { NextResponse } from 'next/server';
-import { MOCK_TENDERS } from '@/lib/mockData';
+import { PrismaClient } from '@prisma/client';
+
+const prisma = new PrismaClient();
 
 export async function GET(request) {
-  const { searchParams } = new URL(request.url);
-  const constituency = searchParams.get('constituency');
-  const status = searchParams.get('status');
+  try {
+    const { searchParams } = new URL(request.url);
+    const constituency = searchParams.get('constituency');
+    const status = searchParams.get('status');
 
-  let tenders = [...MOCK_TENDERS];
-  if (constituency) tenders = tenders.filter(t => t.constituency === constituency);
-  if (status) tenders = tenders.filter(t => t.status === status);
+    let where = {};
+    if (constituency && constituency !== 'All') where.constituency = constituency;
+    if (status && status !== 'All') where.status = status;
 
-  return NextResponse.json({
-    success: true,
-    count: tenders.length,
-    data: tenders,
-    scraper: {
-      last_run: '2025-07-03T06:00:00Z',
-      status: 'completed',
-      portals: ['GEM', 'CPPP', 'State eProcure'],
-    },
-  });
+    const tenders = await prisma.tender.findMany({
+      where,
+      orderBy: { deadline: 'asc' }
+    });
+
+    return NextResponse.json({
+      success: true,
+      count: tenders.length,
+      data: tenders.map(t => ({
+        tender_id: t.id,
+        portal_tender_id: t.portalTenderId,
+        title: t.title,
+        department: t.department,
+        estimated_value: t.estimatedValue,
+        deadline: t.deadline.toISOString(),
+        portal_url: t.portalUrl,
+        source_portal: t.sourcePortal,
+        constituency: t.constituency,
+        status: t.status,
+        category: t.category,
+        description: t.description,
+        scraped_at: t.scrapedAt.toISOString(),
+      })),
+      scraper: {
+        last_run: new Date().toISOString(),
+        status: 'completed',
+        portals: ['GEM', 'CPPP', 'State eProcure'],
+      },
+    });
+  } catch (error) {
+    console.error('Error fetching tenders:', error);
+    return NextResponse.json({ success: false, error: 'Database error' }, { status: 500 });
+  }
 }
