@@ -79,7 +79,7 @@ export default function IssuesPage() {
           />
         </div>
 
-        <div className={styles.filterRow}>
+        <div className={styles.filterGroup}>
           <select className="input-field" value={categoryFilter} onChange={(e) => setCategoryFilter(e.target.value)}>
             <option value="All">All Categories</option>
             {ISSUE_CATEGORIES.map(c => <option key={c} value={c}>{c}</option>)}
