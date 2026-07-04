@@ -1,0 +1,369 @@
+/* ── Dashboard Page ── */
+.statsRow {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-md);
+  margin-bottom: var(--space-xl);
+}
+
+.statCard {
+  padding: var(--space-lg);
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.statIcon {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-lg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  background: rgba(16, 185, 129, 0.15);
+  flex-shrink: 0;
+}
+
+.statInfo {
+  display: flex;
+  flex-direction: column;
+}
+
+.statNum {
+  font-family: var(--font-heading);
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: var(--color-emerald);
+  line-height: 1.1;
+}
+
+.statLabel {
+  font-size: 0.78rem;
+  color: var(--color-text-muted);
+  font-weight: 500;
+}
+
+/* Layout */
+.dashLayout {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: var(--space-xl);
+  padding-bottom: var(--space-4xl);
+}
+
+.mainPanel {
+  min-width: 0;
+}
+
+/* Table */
+.tableCard {
+  padding: var(--space-xl);
+  overflow: hidden;
+}
+
+.tableHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-lg);
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+}
+
+.tableTitle {
+  font-family: var(--font-heading);
+  font-size: 1.15rem;
+  font-weight: 700;
+}
+
+.formulaBadge {
+  font-family: monospace;
+  font-size: 0.72rem;
+  color: var(--color-text-muted);
+  background: var(--color-bg-glass);
+  padding: 0.3rem 0.8rem;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--color-border);
+}
+
+.tableWrap {
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 800px;
+}
+
+.table th, .table td {
+  padding: 0.7rem 0.6rem;
+  text-align: left;
+  border-bottom: 1px solid var(--color-border);
+  vertical-align: middle;
+}
+
+.table th {
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-text-muted);
+  font-weight: 700;
+  background: var(--color-bg-glass);
+  white-space: nowrap;
+}
+
+.table td {
+  font-size: 0.82rem;
+}
+
+.tableRow:hover {
+  background: var(--color-bg-glass);
+}
+
+.rank {
+  font-family: var(--font-heading);
+  font-weight: 800;
+  color: var(--color-text-muted);
+  width: 32px;
+}
+
+.issueLink {
+  color: var(--color-text-primary);
+  font-weight: 500;
+  text-decoration: none;
+  display: block;
+  line-height: 1.4;
+  transition: color var(--transition-fast);
+}
+
+.issueLink:hover { color: var(--color-emerald); }
+
+.issueLocation {
+  display: block;
+  font-size: 0.72rem;
+  color: var(--color-text-muted);
+  margin-top: 2px;
+}
+
+.severityDot {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.voteCell {
+  font-weight: 700;
+  color: var(--color-emerald);
+}
+
+.daysCell {
+  color: var(--color-text-muted);
+}
+
+.scoreCell {
+  font-family: var(--font-heading);
+  font-weight: 800;
+  color: var(--color-gold);
+}
+
+/* Priority Bar */
+.priorityBar {
+  width: 100px;
+  height: 6px;
+  background: var(--color-bg-tertiary);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.priorityFill {
+  height: 100%;
+  background: var(--gradient-emerald);
+  border-radius: var(--radius-full);
+  transition: width 0.6s ease-out;
+}
+
+/* Side Panel */
+.sidePanel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+.chartCard {
+  padding: var(--space-lg);
+}
+
+.chartTitle {
+  font-family: var(--font-heading);
+  font-size: 0.95rem;
+  font-weight: 700;
+  margin-bottom: var(--space-md);
+}
+
+/* Bar Chart */
+.barChart {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.barRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.barLabel {
+  font-size: 0.72rem;
+  color: var(--color-text-muted);
+  width: 90px;
+  flex-shrink: 0;
+  text-align: right;
+}
+
+.barTrack {
+  flex: 1;
+  height: 8px;
+  background: var(--color-bg-tertiary);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.barFill {
+  height: 100%;
+  background: var(--gradient-emerald);
+  border-radius: var(--radius-full);
+  animation: slideInLeft 0.8s ease-out both;
+}
+
+.barValue {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--color-text-secondary);
+  width: 20px;
+  text-align: right;
+}
+
+/* Status Grid */
+.statusGrid {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.statusItem {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.statusDot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.statusName {
+  flex: 1;
+  font-size: 0.82rem;
+  color: var(--color-text-secondary);
+}
+
+.statusCount {
+  font-weight: 700;
+  font-size: 0.88rem;
+}
+
+/* Severity List */
+.severityList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.severityRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.severityBadge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  font-size: 0.7rem;
+  font-weight: 800;
+  flex-shrink: 0;
+}
+
+.severityName {
+  flex: 1;
+  font-size: 0.82rem;
+  color: var(--color-text-secondary);
+}
+
+.severityCount {
+  font-weight: 700;
+  font-size: 0.88rem;
+}
+
+/* Mini Chart */
+.miniChart {
+  margin-top: var(--space-md);
+}
+
+.miniChartLabel {
+  font-size: 0.72rem;
+  color: var(--color-text-muted);
+  display: block;
+  margin-bottom: var(--space-sm);
+}
+
+.miniChartBars {
+  display: flex;
+  align-items: flex-end;
+  gap: 4px;
+  height: 60px;
+}
+
+.miniChartBarWrap {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  justify-content: flex-end;
+}
+
+.miniChartBar {
+  width: 100%;
+  border-radius: 2px 2px 0 0;
+  min-height: 4px;
+}
+
+.miniChartBarLabel {
+  font-size: 0.55rem;
+  color: var(--color-text-muted);
+  margin-top: 2px;
+}
+
+@media (max-width: 1024px) {
+  .statsRow { grid-template-columns: repeat(2, 1fr); }
+  .dashLayout { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 768px) {
+  .statsRow { grid-template-columns: 1fr; }
+}

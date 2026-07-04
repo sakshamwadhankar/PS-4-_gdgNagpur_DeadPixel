@@ -1,0 +1,235 @@
+/* ── Tenders Page ── */
+.scraperStatus {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: 0.5rem 1rem;
+  background: rgba(16, 185, 129, 0.08);
+  border: 1px solid rgba(16, 185, 129, 0.2);
+  border-radius: var(--radius-full);
+  font-size: 0.8rem;
+  color: var(--color-emerald-light);
+  margin-bottom: var(--space-xl);
+  display: inline-flex;
+}
+
+.scraperDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-emerald);
+  animation: pulse 2s infinite;
+  flex-shrink: 0;
+}
+
+.scraperInfo {
+  color: var(--color-text-muted);
+}
+
+.filters {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  margin-bottom: var(--space-lg);
+}
+
+.searchWrap {
+  position: relative;
+}
+
+.searchIcon {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.searchInput {
+  padding-left: 42px !important;
+}
+
+.filterRow {
+  display: flex;
+  gap: var(--space-sm);
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.select {
+  flex: 1;
+  min-width: 160px;
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L5 5L9 1' stroke='%2394a3b8' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  padding-right: 32px !important;
+}
+
+.viewToggle {
+  display: flex;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.viewBtn {
+  padding: 0.5rem 0.75rem;
+  font-size: 1rem;
+  color: var(--color-text-muted);
+  background: var(--color-bg-glass);
+  transition: all var(--transition-fast);
+  cursor: pointer;
+}
+
+.viewBtn:hover {
+  color: var(--color-text-primary);
+}
+
+.activeView {
+  background: var(--color-emerald) !important;
+  color: white !important;
+}
+
+.resultCount {
+  color: var(--color-text-muted);
+  font-size: 0.85rem;
+  margin-bottom: var(--space-lg);
+}
+
+/* Card View */
+.tenderGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-lg);
+  padding-bottom: var(--space-4xl);
+}
+
+.tenderCard {
+  padding: var(--space-xl);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.tenderHeader {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.tenderTitle {
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.5;
+  color: var(--color-text-primary);
+}
+
+.tenderDept {
+  font-size: 0.82rem;
+  color: var(--color-text-muted);
+}
+
+.tenderMeta {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-sm);
+}
+
+.tenderMetaItem {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.metaLabel {
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-text-muted);
+  font-weight: 600;
+}
+
+.metaValue {
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: var(--color-text-primary);
+}
+
+.urgent {
+  color: var(--color-rose) !important;
+}
+
+.tenderCategory {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.tenderConstituency {
+  font-size: 0.78rem;
+  color: var(--color-text-muted);
+}
+
+/* Table View */
+.tableWrap {
+  overflow-x: auto;
+  padding-bottom: var(--space-4xl);
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th, .table td {
+  padding: 0.85rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.table th {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-text-muted);
+  font-weight: 700;
+  background: var(--color-bg-glass);
+}
+
+.table td {
+  font-size: 0.88rem;
+}
+
+.tableLink {
+  color: var(--color-text-primary);
+  font-weight: 500;
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+.tableLink:hover {
+  color: var(--color-emerald);
+}
+
+.tableDept {
+  color: var(--color-text-muted);
+  font-size: 0.82rem !important;
+}
+
+.tableValue {
+  font-weight: 700;
+  color: var(--color-emerald);
+}
+
+@media (max-width: 1024px) {
+  .tenderGrid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 768px) {
+  .filterRow { flex-direction: column; }
+  .select { min-width: auto; }
+  .tenderMeta { grid-template-columns: 1fr; }
+}
